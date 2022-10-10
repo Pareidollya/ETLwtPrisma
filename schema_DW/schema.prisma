@@ -1,12 +1,18 @@
 generator client {
   provider = "prisma-client-js"
+  output   = "../node_modules/@internal/prisma/client"
+  
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("ESCOLA_DW")
+  
 }
 
+model test {
+    id_alu  Int @id
+}
 model alunos {
   id_alu        Int             @id(map: "alu_fk") @db.SmallInt
   mat_alu       BigInt

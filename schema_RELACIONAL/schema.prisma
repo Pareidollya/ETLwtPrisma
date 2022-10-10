@@ -6,6 +6,9 @@ datasource db {
   provider = "postgresql"
   url      = env("ESCOLA_RELACIONAL")
 }
+model test {
+  test_id     Int          @id       
+}
 model alunos {
   mat_alu     Int          @id(map: "alu_fk")
   nome        String       @db.VarChar(100)

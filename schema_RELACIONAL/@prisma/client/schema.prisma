@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "@prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("ESCOLA_RELACIONAL")
+}
+model test {
+  test_id     Int          @id
+  test     Int          
+}
+model alunos {
+  mat_alu     Int          @id(map: "alu_fk")
+  nome        String       @db.VarChar(100)
+  dat_entrada DateTime     @db.Date
+  cod_curso   Int
+  cotista     String       @db.Char(1)
+  cursos      cursos       @relation(fields: [cod_curso], references: [cod_curso], onDelete: NoAction, onUpdate: NoAction, map: "alu_cur_fk")
+  matriculas  matriculas[]
+}
+
+model cursos {
+  cod_curso       Int               @id(map: "cur_pk")
+  nom_curso       String            @db.VarChar(80)
+  cod_dpto        Int
+  departamentos   departamentos     @relation(fields: [cod_dpto], references: [cod_dpto], onDelete: NoAction, onUpdate: NoAction, map: "cur_der_fk")
+  alunos          alunos[]
+  matrizes_cursos matrizes_cursos[]
+}
+
+model departamentos {
+  cod_dpto  Int      @id(map: "departamentos_pk")
+  nome_dpto String   @db.VarChar(50)
+  cursos    cursos[]
+}
+
+model disciplinas {
+  cod_disc        Int               @id(map: "disc_pk")
+  nome_disc       String            @db.VarChar(60)
+  carga_horaria   Int
+  matriculas      matriculas[]
+  matrizes_cursos matrizes_cursos[]
+}
+
+model matriculas {
+  semestre    Int
+  mat_alu     Int
+  cod_disc    Int
+  nota        Int?
+  faltas      Int?
+  status      String?     @db.Char(1)
+  alunos      alunos      @relation(fields: [mat_alu], references: [mat_alu], onDelete: NoAction, onUpdate: NoAction, map: "mat_alu_fk")
+  disciplinas disciplinas @relation(fields: [cod_disc], references: [cod_disc], onDelete: NoAction, onUpdate: NoAction, map: "mat_dis_fk")
+
+  @@id([mat_alu, semestre], map: "mat_pk")
+}
+
+model matrizes_cursos {
+  cod_curso   Int
+  cod_disc    Int
+  periodo     Int
+  cursos      cursos      @relation(fields: [cod_curso], references: [cod_curso], onDelete: NoAction, onUpdate: NoAction, map: "mcu_cur_fk")
+  disciplinas disciplinas @relation(fields: [cod_disc], references: [cod_disc], onDelete: NoAction, onUpdate: NoAction, map: "mcu_dis_fk")
+
+  @@id([cod_curso, cod_disc], map: "mcu_pk")
+}
+
+

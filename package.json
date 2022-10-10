@@ -1,0 +1,31 @@
+{
+  "name": "etlwtprisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@prisma/client": "^4.4.0",
+    "prisma": "^4.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "dbmigrate": "npx prisma migrate dev",
+    "dbreset": "npx prisma migrate reset",
+    "dbdeploy": "npx prisma migrate deploy",
+
+    "ralcionalmigrate": "npx prisma migrate dev --schema ./schema_RELACIONAL/schema.prisma",
+    "dwmigrate": "npx prisma migrate dev --schema ./schema_DW/schema.prisma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pareiollya/ETLwtPrisma.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pareiollya/ETLwtPrisma/issues"
+  },
+  "homepage": "https://github.com/Pareiollya/ETLwtPrisma#readme"
+}

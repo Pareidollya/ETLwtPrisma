@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("ESCOLA_DW")
+}
+
+model alunos {
+  id_alu        Int             @id(map: "alu_fk") @db.SmallInt
+  mat_alu       BigInt
+  cotista       String          @db.Char(1)
+  cod_curso     Int
+  ft_matriculas ft_matriculas[]
+}
+
+model cursos {
+  id_curso      Int             @id(map: "cur_pk") @db.SmallInt
+  cod_curso     Int             @db.SmallInt
+  nom_curso     String          @db.VarChar(80)
+  nom_dpto      String          @db.VarChar(50)
+  ft_matriculas ft_matriculas[]
+}
+
+model disciplinas {
+  id_disc       Int             @id(map: "disc_pk") @db.SmallInt
+  cod_disc      Int
+  nome_disc     String          @db.VarChar(60)
+  horas         Int
+  ft_matriculas ft_matriculas[]
+}
+
+model tempo {
+  id_data       Int             @id(map: "tempo_pk") @db.SmallInt
+  ano           Int             @db.SmallInt
+  semestre      Int             @db.SmallInt
+  ft_matriculas ft_matriculas[]
+}
+
+model ft_matriculas {
+  id_data     Int         @db.SmallInt
+  id_alu      Int         @db.SmallInt
+  id_disc     Int         @db.SmallInt
+  id_curso    Int         @db.SmallInt
+  nota        Decimal     @db.Decimal(5, 2)
+  faltas      Int         @db.SmallInt
+  status      String      @db.Char(1)
+  cotista     String      @db.VarChar
+  alunos      alunos      @relation(fields: [id_alu], references: [id_alu], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_aluno_fk")
+  cursos      cursos      @relation(fields: [id_curso], references: [id_curso], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_cur_fk")
+  tempo       tempo       @relation(fields: [id_data], references: [id_data], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_data_fk")
+  disciplinas disciplinas @relation(fields: [id_disc], references: [id_disc], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_disc_fk")
+
+  @@id([id_data, id_alu, id_disc, id_curso], map: "mat_pk")
+}
+

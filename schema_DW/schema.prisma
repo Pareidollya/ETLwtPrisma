@@ -38,13 +38,14 @@ model disciplinas {
 }
 
 model tempo {
-  id_data       Int             @id(map: "tempo_pk") @db.SmallInt
+  id_data       Int             @id(map: "tempo_pk") @db.SmallInt @default(autoincrement())
   ano           Int             @db.SmallInt
   semestre      Int             @db.SmallInt
   ft_matriculas ft_matriculas[]
 }
 
 model ft_matriculas {
+  id_mat      Int         @default(autoincrement())
   id_data     Int         @db.SmallInt
   id_alu      Int         @db.SmallInt
   id_disc     Int         @db.SmallInt
@@ -58,6 +59,6 @@ model ft_matriculas {
   tempo       tempo       @relation(fields: [id_data], references: [id_data], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_data_fk")
   disciplinas disciplinas @relation(fields: [id_disc], references: [id_disc], onDelete: NoAction, onUpdate: NoAction, map: "ft_matr_disc_fk")
 
-  @@id([id_data, id_alu, id_disc, id_curso], map: "mat_pk")
+  @@id([id_data, id_alu, id_disc, id_curso,id_mat], map: "mat_pk")
 }
 

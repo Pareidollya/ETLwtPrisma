@@ -46,7 +46,7 @@ model matriculas {
   semestre    Int
   mat_alu     Int
   cod_disc    Int
-  nota        Int?
+  nota        Decimal     @db.Decimal(5, 2)
   faltas      Int?
   status      String?     @db.Char(1)
   alunos      alunos      @relation(fields: [mat_alu], references: [mat_alu], onDelete: NoAction, onUpdate: NoAction, map: "mat_alu_fk")

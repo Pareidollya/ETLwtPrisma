@@ -33,7 +33,12 @@ let main = async () =>{
     //     }
     // })
 
-    const querySelect = await relacional.matriculas.findMany()
+    const querySelect = await relacional.matriculas.findMany({
+        where: {
+            mat_alu: 100,
+            
+          },
+    })
     console.log(querySelect)
 }
 

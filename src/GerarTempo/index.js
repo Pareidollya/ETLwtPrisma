@@ -11,9 +11,12 @@ module.exports = async () => {
     // clear()
 
     const resultQuery = await dw.tempo.findMany({})
+
     for (let year = 2000; year <= 2025; year++) { //inserir anos
         const exists = resultQuery.find(({ ano }) => ano === year); //verificar se o ano existe
+
         if(exists == undefined){ //caso nao exista o ano na tabela, ele será adicionado
+            
             for (let sem = 1; sem <= 2; sem++) { //inserir ano e semestres
                 const insert = await dw.tempo.create({
                     data: {

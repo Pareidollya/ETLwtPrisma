@@ -14,7 +14,7 @@ model test {
     id_alu  Int @id
 }
 model alunos {
-  id_alu        Int             @id(map: "alu_fk") @db.SmallInt
+  id_alu        Int             @id(map: "alu_fk") @db.SmallInt @default(autoincrement())
   mat_alu       BigInt
   cotista       String          @db.Char(1)
   cod_curso     Int
@@ -22,7 +22,7 @@ model alunos {
 }
 
 model cursos {
-  id_curso      Int             @id(map: "cur_pk") @db.SmallInt
+  id_curso      Int             @id(map: "cur_pk") @db.SmallInt @default(autoincrement())
   cod_curso     Int             @db.SmallInt
   nom_curso     String          @db.VarChar(80)
   nom_dpto      String          @db.VarChar(50)
@@ -30,7 +30,7 @@ model cursos {
 }
 
 model disciplinas {
-  id_disc       Int             @id(map: "disc_pk") @db.SmallInt
+  id_disc       Int             @id(map: "disc_pk") @db.SmallInt @default(autoincrement())
   cod_disc      Int
   nome_disc     String          @db.VarChar(60)
   horas         Int

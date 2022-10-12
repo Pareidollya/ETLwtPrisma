@@ -2,12 +2,15 @@
 
 const relacional = require('./service/relacional-service')
 const dw = require('./service/dw-service')
-const { GerarTempo } = require('./src/GerarTempo')
 
 
-let main = async () =>{
+async function main (){
     const gerarTempo = require('./src/GerarTempo')
+    const loadAlunos = require('./src/LoadAlunos')
+
+    //LOAD
     gerarTempo()  
+    loadAlunos()
 
     const querySelect = await relacional.matriculas.findFirst({
         where: {

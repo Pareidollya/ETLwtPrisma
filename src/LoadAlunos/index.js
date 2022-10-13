@@ -6,8 +6,7 @@ module.exports = async () => {
         const a = await dw.alunos.deleteMany({})
         console.log('Tabela alunos - cleared')
     }
-    
-    
+
     // clear()
     
     //extrair os alunos 

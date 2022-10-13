@@ -11,19 +11,29 @@ const LoadDisciplinas = require('./src/LoadDisciplinas')
 const LoadFacts = require('./src/LoadFacts')
 
 async function main (){
+    //CLEAR
+    const clear = async () => {
+        const matriculas = await dw.ft_matriculas.deleteMany({})
+        const alunos = await dw.alunos.deleteMany({})
+        const tempo = await dw.tempo.deleteMany({})
+        const cursos = await dw.cursos.deleteMany({})
+        const disciplinas = await dw.disciplinas.deleteMany({})
+        
+    }
 
+    // clear()
     //LOAD
-    gerarTempo()  
-    loadAlunos()
-    LoadCursos()
-    LoadDisciplinas()
+    await gerarTempo()  
+    await loadAlunos()
+    await LoadCursos()
+    await LoadDisciplinas()
 
-    LoadFacts()
+    await LoadFacts()
 
     
     //selects
     const resultQueryDW = await dw.ft_matriculas.findMany({})
-    console.log(resultQueryDW)
+    // console.log(resultQueryDW)
 
     const querySelect = await relacional.matriculas.findFirst({
         where: {
@@ -31,7 +41,19 @@ async function main (){
           },
     })
     // console.log(querySelect)
+
+
 }
-
-
 main()
+
+// TRUNCATE TABLE alunos CASCADE
+// TRUNCATE TABLE cursos CASCADE
+// TRUNCATE TABLE disciplinas cascade
+// TRUNCATE TABLE tempo cascade
+// TRUNCATE TABLE ft_matriculas cascade
+
+// select * from ft_matriculas
+// select * from alunos
+// select * from tempo
+// select * from cursos
+// select * from disciplinas
